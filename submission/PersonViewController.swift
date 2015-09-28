@@ -1,35 +1,39 @@
-//
-//  PersonViewController.swift
-//  submission
-//
-//  Created by A. Cooper Whitlow on 9/26/15.
-//  Copyright © 2015 Cooper Whitlow. All rights reserved.
-//
+// HOMEWORK 4 START
 
 import UIKit
 
-class PersonViewController: UIViewController {
+class PersonViewController: UIViewController, UITableViewDataSource{
 
-    override func viewDidLoad() {
+  var firstName = ["Anastasia", "Nastya", "Dasha", "Olga", "Katya", "Polina", "Masha", "Yana", "Sveta", "Ira", "Lena", "Natalia", "Darya", "Anya", "Sasha", "Catherine", "Vlada", "Kira", "Tatyana", "Galina"]
+  var lastName = ["Smirnov", "Ivanov", "Kuznetsov", "Popov", "Vasiliev", "Petrov", "Mikhailov", "Sokolov", "Morozov", "Volkov", "Pavlov", "Kozlov", "Stepanov", "Nikolaev", "Orlov", "Emelianenko", "Tinkov", "Vlad", "Zubkov", "Kozak"]
+  
+  @IBOutlet weak var tableView: UITableView!
+  
+  override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+      tableView.dataSource = self
     }
 
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return lastName.count
+  }
+  
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    
+    // Deque my cell (allow reuse)
+    let cell = tableView.dequeueReusableCellWithIdentifier("personCell", forIndexPath: indexPath)
+
+    // Configure cell value
+    let fullName = firstName[indexPath.row] + " " + lastName[indexPath.row]
+    cell.textLabel?.text = fullName
+    
+    // Return cell value
+    return cell
+  }
+  
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+  
 }
+// HOMEWORK 4 END

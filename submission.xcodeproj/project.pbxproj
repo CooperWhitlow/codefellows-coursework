@@ -12,6 +12,7 @@
 		1E7F358D1BB63B630021B4D6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E7F358B1BB63B630021B4D6 /* Main.storyboard */; };
 		1E7F358F1BB63B630021B4D6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E7F358E1BB63B630021B4D6 /* Assets.xcassets */; };
 		1E7F35921BB63B630021B4D6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1E7F35901BB63B630021B4D6 /* LaunchScreen.storyboard */; };
+		1E99D2931BB7B7CE0084D500 /* PersonViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E99D2921BB7B7CE0084D500 /* PersonViewController.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +23,7 @@
 		1E7F358E1BB63B630021B4D6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E7F35911BB63B630021B4D6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1E7F35931BB63B630021B4D6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1E99D2921BB7B7CE0084D500 /* PersonViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PersonViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			children = (
 				1E7F35871BB63B630021B4D6 /* AppDelegate.swift */,
 				1E7F35891BB63B630021B4D6 /* ViewController.swift */,
+				1E99D2921BB7B7CE0084D500 /* PersonViewController.swift */,
 				1E7F358B1BB63B630021B4D6 /* Main.storyboard */,
 				1E7F358E1BB63B630021B4D6 /* Assets.xcassets */,
 				1E7F35901BB63B630021B4D6 /* LaunchScreen.storyboard */,
@@ -135,6 +138,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1E7F358A1BB63B630021B4D6 /* ViewController.swift in Sources */,
+				1E99D2931BB7B7CE0084D500 /* PersonViewController.swift in Sources */,
 				1E7F35881BB63B630021B4D6 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

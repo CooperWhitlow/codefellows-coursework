@@ -57,18 +57,5 @@ class ViewController: UIViewController {
     rightBottomLabel.text = "\(rightArray[rightArrayPosition])"
   }
 // HOMEWORK 3 END
-  
-// HOMEWORK 4 START
-  class Person: NSSTRING {
-    var firstName
-    var lastName =
-  }
-
-// HOMEWORK 4 END
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-  }
-
-
 }
 
