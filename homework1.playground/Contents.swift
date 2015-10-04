@@ -70,6 +70,11 @@ class BridgeStick : CueStick {
 // subclass of a subclass of the Stick class...
 }
 
+func breakStick(weaponStick: String, victimStick: String) {
+  victimStick.length = victimStick.length / 2
+  print(weaponStick + " just broke " + victimStick + " in half!")
+}
+
 let myChopsticks = Chopsticks(startingLength: 10)
 
 let myCueStick = CueStick(startingLength:100)

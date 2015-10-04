@@ -10,16 +10,19 @@ import UIKit
 
 class NameDetailViewController: UIViewController {
 
-  var firstNameValue = "first"
-  var lastNameValue = "last"
+  var selectedFirstName = "None"
+  var selectedLastName = "None"
+  var uniqueAstrologicalSign : UIImage?
   
   @IBOutlet weak var firstNameLabel: UILabel!
   @IBOutlet weak var lastNameLabel: UILabel!
+  @IBOutlet weak var astrologicalSignImage: UIImageView!
   
     override func viewDidLoad() {
         super.viewDidLoad()
-      firstNameLabel.text = firstNameValue
-      lastNameLabel.text = lastNameValue
+      firstNameLabel.text = selectedFirstName
+      lastNameLabel.text = selectedLastName
+      astrologicalSignImage.image = uniqueAstrologicalSign
     }
 
     override func didReceiveMemoryWarning() {
