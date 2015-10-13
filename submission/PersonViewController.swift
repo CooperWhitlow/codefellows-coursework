@@ -1,74 +1,87 @@
-// HOMEWORK 4 START
-
 import UIKit
 
 class PersonViewController: UIViewController, UITableViewDataSource{
 
-  // Instatiate arrays with our name data
-  let firstNames = ["Anastasia", "Nastya", "Dasha", "Olga", "Katya", "Polina", "Masha", "Yana", "Sveta", "Ira", "Lena", "Natalia", "Darya", "Anya", "Sasha", "Catherine", "Vlada", "Kira", "Tatyana", "Galina"]
-  let lastNames = ["Smirnov", "Ivanov", "Kuznetsov", "Popov", "Vasiliev", "Petrov", "Mikhailov", "Sokolov", "Morozov", "Volkov", "Pavlov", "Kozlov", "Stepanov", "Nikolaev", "Orlov", "Emelianenko", "Tinkov", "Vlad", "Zubkov", "Kozak"]
-  
-  // Prep our astrology images for later use
-  let astrologicalSignImages = [UIImage(named: "images/aries.png"), UIImage(named: "images/taurus.png"), UIImage(named: "images/gemini.png"), UIImage(named: "images/cancer.png"), UIImage(named: "images/leo.png"), UIImage(named: "images/virgo.png"), UIImage(named: "images/libra.png"), UIImage(named: "images/scorpio.png"), UIImage(named: "images/sagittarius.png"), UIImage(named: "images/capricorn.png"), UIImage(named: "images/aquarius.png"), UIImage(named: "images/pisces.png")]
-  var astrologicalSignAssignments = [Int]()
-  
   @IBOutlet weak var tableView: UITableView!
+  
+  var personArray = [Person]()
   
   override func viewDidLoad() {
         super.viewDidLoad()
-      tableView.dataSource = self
     
-    // assign a random astrological sign at each name index without any 'magic numbers'
-    let totalAstrolocialSignsAvailable = astrologicalSignImages.count
+    tableView.dataSource = self
     
-    for _ in lastNames {
-      astrologicalSignAssignments.append(Int(arc4random_uniform(UInt32(totalAstrolocialSignsAvailable))))
+    // loop through pre-existing first & last name arrays to instantiate everyone using Person class
+    let safeArrayLength = min(firstNames.count, lastNames.count)
+    for var index = 0; index < safeArrayLength; ++index {
+      let newPerson = Person(fName: firstNames[index], lName: lastNames[index])
+      personArray.append(newPerson)
     }
+        }
+  
+  override func viewWillAppear(animated: Bool) {
+    super.viewWillAppear(animated)
+    
+    tableView.reloadData()
   }
   
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "displayNameDetail" {
       
-      //Get reference to where we are going
+      //Get reference to where we are going with *optional* down cast
       if let destinationViewController = segue.destinationViewController as? NameDetailViewController {
       
       //identify which row a user clicks on
       let selectedIndexPath = tableView.indexPathForSelectedRow!
       let selectedRow = selectedIndexPath.row
       
-      // identify name detail data for the row selected by user
-      let selectedFirstName = firstNames[selectedRow]
-      let selectedLastName = lastNames[selectedRow]
-      let uniqueAstrologicalSign = astrologicalSignAssignments[selectedRow]
-
-      // pass the above detail data to the destination VC
-      destinationViewController.selectedFirstName = selectedFirstName
-      destinationViewController.selectedLastName = selectedLastName
-      destinationViewController.uniqueAstrologicalSign = astrologicalSignImages[uniqueAstrologicalSign]
+      // identify Person object for the selected row above
+      let selectedPerson = personArray[selectedRow]
+      
+      // pass the above Person object & zodiac to the destination VC
+      destinationViewController.selectedPerson = selectedPerson
+      destinationViewController.zodiacSign = zodiacImages[selectedPerson.zodiacIndexAssignment]
       }
     }
   }
   
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return lastNames.count
+    return personArray.count
   }
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     
     // Deque my cell (allow reuse)
-    let cell = tableView.dequeueReusableCellWithIdentifier("personCell", forIndexPath: indexPath)
+    let cell = tableView.dequeueReusableCellWithIdentifier("personCell", forIndexPath: indexPath) as! TableViewCell
 
     // Configure cell value
-    let fullName = firstNames[indexPath.row] + " " + lastNames[indexPath.row]
-    cell.textLabel?.text = fullName
+    let person = personArray[indexPath.row]
+    
+    cell.firstNameLabel.text = person.firstName
+    cell.lastNameLabel.text = person.lastName
+    cell.profilePhoto.image = zodiacImages[person.zodiacIndexAssignment]
     
     // Return cell value
     return cell
+
   }
   
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+  // boiler plate code to save to disk
+  func saveToArchive() {
+    if let documentPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last {
+      
+      NSKeyedArchiver.archiveRootObject(personArray, toFile: documentPath + "/archive")
     }
+  }
+  
+  func loadFromArchive() -> [Person]? {
+    if let documentPath = NSSearchPathForDirectoriesInDomains(NSSearchPathDirectory.DocumentDirectory, NSSearchPathDomainMask.UserDomainMask, true).last {
+      
+      if let people = NSKeyedUnarchiver.unarchiveObjectWithFile(documentPath + "/archive") as? [Person] {
+        return people
+      }
+    }
+    return nil
+  }
   
 }
-// HOMEWORK 4 END

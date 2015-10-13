@@ -8,25 +8,33 @@
 
 import UIKit
 
-class NameDetailViewController: UIViewController {
+class NameDetailViewController: UIViewController, UITextFieldDelegate{
 
-  var selectedFirstName = "None"
-  var selectedLastName = "None"
-  var uniqueAstrologicalSign : UIImage?
+  @IBOutlet weak var firstNameTextField: UITextField!
+  @IBOutlet weak var lastNameTextField: UITextField!
+  @IBOutlet weak var zodiacSignImage: UIImageView!
   
-  @IBOutlet weak var firstNameLabel: UILabel!
-  @IBOutlet weak var lastNameLabel: UILabel!
-  @IBOutlet weak var astrologicalSignImage: UIImageView!
+  var selectedPerson : Person?
+  var zodiacSign : UIImage?
   
     override func viewDidLoad() {
         super.viewDidLoad()
-      firstNameLabel.text = selectedFirstName
-      lastNameLabel.text = selectedLastName
-      astrologicalSignImage.image = uniqueAstrologicalSign
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
       
-    }
+      firstNameTextField.text = selectedPerson?.firstName
+      lastNameTextField.text = selectedPerson?.lastName
+      zodiacSignImage.image = zodiacSign
+      
+      firstNameTextField.delegate = self
+      lastNameTextField.delegate = self
+  }
+  
+  func textFieldShouldReturn(textField: UITextField) -> Bool {
+    
+    selectedPerson!.firstName = firstNameTextField.text!
+    selectedPerson!.lastName = lastNameTextField.text!
+    
+    textField.resignFirstResponder()
+    
+    return true
+  }
 }
